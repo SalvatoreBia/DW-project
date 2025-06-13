@@ -1,0 +1,65 @@
+CREATE TABLE IF NOT EXISTS Date (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date DATE,
+    month INTEGER,
+    year INTEGER,
+    UNIQUE(date, month, year)
+);
+~
+CREATE TABLE IF NOT EXISTS Groups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_name TEXT UNIQUE
+);
+~
+CREATE TABLE IF NOT EXISTS Target (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    target_type TEXT UNIQUE
+);
+~
+CREATE TABLE IF NOT EXISTS Weapon (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+	weapon_name TEXT,
+    weapon_category TEXT,
+	UNIQUE(weapon_name, weapon_category)
+);
+~
+CREATE TABLE IF NOT EXISTS Location (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    city TEXT,
+    provstate TEXT,
+    region TEXT,
+    country TEXT,
+    UNIQUE(city, provstate, region, country)
+);
+~
+CREATE TABLE IF NOT EXISTS Suicide (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    suicide INTEGER UNIQUE
+);
+~
+CREATE TABLE IF NOT EXISTS Religious (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    religious_fanatic INTEGER UNIQUE
+);
+~
+CREATE TABLE IF NOT EXISTS Attack (
+    id INTEGER PRIMARY KEY,
+    date_id INTEGER,
+    target_id INTEGER,
+    weapon_id INTEGER,
+    suicide_id INTEGER,
+    religious_fanatic_id INTEGER,
+    location_id INTEGER,
+    group_id INTEGER,
+    attack_type TEXT,
+    success INTEGER,
+    nkill INTEGER,
+    nwound INTEGER,
+    FOREIGN KEY(date_id) REFERENCES Date(id),
+    FOREIGN KEY(target_id) REFERENCES Target(id),
+    FOREIGN KEY(weapon_id) REFERENCES Weapon(id),
+    FOREIGN KEY(suicide_id) REFERENCES Suicide(id),
+    FOREIGN KEY(religious_fanatic_id) REFERENCES Religious(id),
+    FOREIGN KEY(location_id) REFERENCES Location(id),
+    FOREIGN KEY(group_id) REFERENCES Groups(id)
+);

@@ -1,0 +1,53 @@
+CREATE TABLE IF NOT EXISTS Location (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    city TEXT,
+    provstate TEXT,
+    region TEXT,
+    country TEXT,
+    UNIQUE(city, provstate, region, country)
+);
+~
+CREATE TABLE IF NOT EXISTS Target (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    target_name TEXT,
+    target_type TEXT,
+    UNIQUE(target_name, target_type)
+);
+~
+CREATE TABLE IF NOT EXISTS Weapon (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    weapon_name TEXT,
+    weapon_category TEXT,
+    UNIQUE(weapon_name, weapon_category)
+);
+~
+CREATE TABLE IF NOT EXISTS Groups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_name TEXT,
+    religious_fanatic INTEGER,
+    weapon_id INTEGER,
+    FOREIGN KEY(weapon_id) REFERENCES Weapon(id),
+    UNIQUE(group_name, religious_fanatic, weapon_id)
+);
+~
+CREATE TABLE IF NOT EXISTS Attack (
+    id INTEGER PRIMARY KEY,
+    date DATE,
+    suicide INTEGER,
+    success INTEGER,
+    nkill INTEGER,
+    nwound INTEGER,
+    propvalue INTEGER,
+    propcomment TEXT,
+    motive TEXT,
+    summary TEXT,
+    ransom INTEGER,
+    ransomamt INTEGER,
+    hostkidoutcome TEXT,
+    group_id INTEGER,
+    target_id INTEGER,
+    location_id INTEGER,
+    FOREIGN KEY(group_id) REFERENCES Groups(id),
+    FOREIGN KEY(target_id) REFERENCES Target(id),
+    FOREIGN KEY(location_id) REFERENCES Location(id)
+);
