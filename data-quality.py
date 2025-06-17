@@ -8,8 +8,8 @@ completeness = {}
 validity = {}
 
 valid_domains = {
-    'imonth': list(range(0, 13)),
-    'iday': list(range(0, 32)),
+    'imonth': list(range(1, 13)),
+    'iday': list(range(1, 32)),
     'iyear': list(range(1970, 2026)),
     'success': [0, 1],
     'suicide': [0, 1]
